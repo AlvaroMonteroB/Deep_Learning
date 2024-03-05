@@ -12,9 +12,9 @@ from sklearn.metrics import accuracy_score
 number_of_features=2
 number_of_units=1
 weight=tf.Variable(
-    tf.zeros(number_of_features,number_of_units)
+    tf.zeros([number_of_features,number_of_units])
 )
-bias=tf.Variable(tf.zeros(number_of_units))
+bias=tf.Variable(tf.zeros([number_of_units]))
 
 
 def perceptron(x):
