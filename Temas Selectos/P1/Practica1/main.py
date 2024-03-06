@@ -9,7 +9,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
 
 
-number_of_features=2
+number_of_features=4
 number_of_units=1
 weight=tf.Variable(
     tf.zeros([number_of_features,number_of_units])
@@ -29,15 +29,22 @@ individual_loss=lambda : abs(
 )
 
 
+mapping={
+    "Setosa":1,
+    "Versicolor":0,
+    "Virginica":0
+}
 
 optimizer=tf.keras.optimizers.Adam(.01)
-dataframe=pd.read_csv("data.csv")
+dataframe=pd.read_csv("iris.csv")
 dataframe.head( )
-plt.scatter(dataframe.x1,dataframe.x2,c=dataframe.label)
+dataframe["num_labels"]=dataframe['label'].map(mapping)
+plt.scatter(dataframe.x1,dataframe.x2,c=dataframe.num_labels)
 #plt.show()
 
-x_input=dataframe[['x1','x2']].values
-y_label=dataframe[['label']].values
+x_input=dataframe[['x1','x2','x3','x4']].values
+
+y_label=dataframe[['num_labels']].values
 
 x=tf.Variable(x_input)
 x=tf.cast(x,tf.float32)
